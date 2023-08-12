@@ -17,5 +17,5 @@ export default function FilterContacts({ title, handleFilter, filter }) {
 FilterContacts.propTypes = {
   title: PropTypes.string.isRequired,
   handleFilter: PropTypes.func.isRequired,
-  state: PropTypes.shape({ filter: PropTypes.string.isRequired }).isRequired,
+  filter: PropTypes.string.isRequired,
 };
