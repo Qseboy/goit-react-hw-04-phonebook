@@ -1,9 +1,5 @@
 import PropTypes from 'prop-types';
-export default function FilterContacts({
-  title,
-  handleFilter,
-  state: { filter },
-}) {
+export default function FilterContacts({ title, handleFilter, filter }) {
   return (
     <>
       <h3>{title}</h3>

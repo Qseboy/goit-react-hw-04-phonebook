@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import {
   ContactButton,
   ContactDiv,
@@ -7,70 +7,69 @@ import {
 } from './contactForm.styled';
 import PropTypes from 'prop-types';
 import Section from 'components/Section/Section';
-// import { nanoid } from 'nanoid';
 
-const INITIAL_STATE = {
-  name: '',
-  number: '',
-};
+export default function ContactForm({ updateState }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-export default class ContactForm extends Component {
-  state = { ...INITIAL_STATE };
-
-  // handle inputs
-  handleChange = event => {
+  const handleChange = event => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+
+    if (name === 'name') {
+      setName(value);
+    }
+
+    if (name === 'number') {
+      setNumber(value);
+    }
   };
 
-  handleForm = event => {
+  const handleForm = event => {
     event.preventDefault();
-    this.props.updateState(this.state.name, this.state.number);
-    this.resetForm();
+    updateState(name, number);
+    resetForm();
   };
 
-  // reset form
-  resetForm = () => {
-    this.setState({ ...INITIAL_STATE });
+  const resetForm = () => {
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    return (
-      <Section title="Phonebook">
-        <ContactUiForm type="submit" onSubmit={event => this.handleForm(event)}>
-          <ContactDiv>
-            <ContactLabel htmlFor="name">Name</ContactLabel>
-            <input
-              className="input-field"
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              value={this.state.name}
-              onChange={event => this.handleChange(event)}
-            />
-          </ContactDiv>
+  return (
+    <Section title="Phonebook">
+      <ContactUiForm type="submit" onSubmit={handleForm}>
+        <ContactDiv>
+          <ContactLabel htmlFor="name">Name</ContactLabel>
+          <input
+            className="input-field"
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            value={name}
+            onChange={handleChange}
+          />
+        </ContactDiv>
 
-          <ContactDiv>
-            <ContactLabel htmlFor="number">Tel</ContactLabel>
-            <input
-              className="input-field"
-              type="tel"
-              name="number"
-              pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              value={this.state.number}
-              onChange={event => this.handleChange(event)}
-              required
-            />
-          </ContactDiv>
+        <ContactDiv>
+          <ContactLabel htmlFor="number">Tel</ContactLabel>
+          <input
+            className="input-field"
+            type="tel"
+            name="number"
+            pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            value={number}
+            onChange={handleChange}
+            required
+          />
+        </ContactDiv>
 
-          <ContactButton type="submit">add contact</ContactButton>
-        </ContactUiForm>
-      </Section>
-    );
-  }
+        <ContactButton type="submit">add contact</ContactButton>
+      </ContactUiForm>
+    </Section>
+  );
 }
 
 ContactForm.propTypes = {
