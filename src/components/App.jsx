@@ -30,7 +30,7 @@ export default function App() {
 
     if (checkContacts) {
       alert(`${name} is already in contacts`);
-      return name;
+      return true;
     }
   };
 
