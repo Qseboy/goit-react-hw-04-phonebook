@@ -34,10 +34,6 @@ export default function App() {
     }
   };
 
-  const handleFilter = event => {
-    setFilter(event.target.value);
-  };
-
   const removeContact = id => {
     const updatedContacts = contacts.filter(el => el.id !== id);
     setContacts(updatedContacts);
@@ -50,7 +46,7 @@ export default function App() {
         <FilterContacts
           title="FInd contacts by name"
           filter={filter}
-          handleFilter={handleFilter}
+          setFilter={setFilter}
         />
         <ContactList
           contacts={contacts}

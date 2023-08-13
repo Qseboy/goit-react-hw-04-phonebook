@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-export default function FilterContacts({ title, handleFilter, filter }) {
+export default function FilterContacts({ title, setFilter, filter }) {
   return (
     <>
       <h3>{title}</h3>
@@ -8,7 +8,7 @@ export default function FilterContacts({ title, handleFilter, filter }) {
         type="text"
         name="filter"
         value={filter}
-        onChange={event => handleFilter(event)}
+        onChange={event => setFilter(event.target.value)}
       />
     </>
   );
@@ -16,6 +16,6 @@ export default function FilterContacts({ title, handleFilter, filter }) {
 
 FilterContacts.propTypes = {
   title: PropTypes.string.isRequired,
-  handleFilter: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
 };
