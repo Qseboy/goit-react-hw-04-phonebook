@@ -8,9 +8,10 @@ import { useState, useEffect } from 'react';
 
 export default function App() {
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState(() =>
-    JSON.parse(localStorage.getItem('contacts'))
-  );
+  const [contacts, setContacts] = useState(() => {
+    const initContact = JSON.parse(localStorage.getItem('contacts'));
+    return initContact ? initContact : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
